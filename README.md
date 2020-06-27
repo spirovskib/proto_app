@@ -1,9 +1,10 @@
-# Proto_App is a demo Web application  
-## Proto_App runs Python 3 and Django 3. The database is local SQLite3 file.  
+# Prototype Web application  
+### Proto_App runs Python 3 and Django 3. The database is local SQLite3 file.  
   
 **Important: Not production grade! Run only for educational purposes!**   
 
-There is no attempt at visual aesthetics (no CSS nor any advanced HTML)  
+There is no attempt at visual aesthetics (no CSS nor any advanced HTML)
+This application is a POC
   
 ### Functionalities  
 - Creation of simple posts with title, text, image and PDF upload
@@ -25,7 +26,8 @@ There is no attempt at visual aesthetics (no CSS nor any advanced HTML)
     source bin/activate
   
 #### Download the repo:  
-while in proto_application folder run:  
+while in proto_application folder run:   
+
     git clone https://github.com/spirovskib/proto_app
 
 #### Initial setup (in the folder where the git clone stored the code):  
@@ -35,6 +37,9 @@ while in proto_application folder run:
     python manage.py migrate
     python manage.py createsuperuser
 
+*Important: the python-magic is a wrapper around the libmagic C library, and that must be installed as well. More details on installation of libmagic here:*
+
+    https://pypi.org/project/python-magic/
 
 ### Running of the app (on localshost at port 8000)  
     python manage.py runserver
