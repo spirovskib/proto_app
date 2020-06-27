@@ -2,8 +2,12 @@
 
 
 {% block main %}
-New post
-<p><a href="/">Home</a></p>
+
+<h2>Create New Post</h2>
+<br/>
+<h4>
+    <a href="/">Home Page</a>
+</h4>
 
     <form method="POST" enctype="multipart/form-data" action="">
         {% csrf_token %}

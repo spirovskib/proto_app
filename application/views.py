@@ -34,8 +34,8 @@ def new_post_view(request, *args, **kwargs):
                 image = Image.open(instance.post_image_1)
                 w,h=image.size
                 ratio = w/h
-                w1 = 1024
-                h1 = int(1024/ratio)
+                w1 = 800
+                h1 = int(w1/ratio)
                 image = image.resize((w1, h1), Image.ANTIALIAS)
                 image_file = io.BytesIO()
                 image.save(image_file, 'JPEG', quality=99)

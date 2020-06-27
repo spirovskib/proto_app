@@ -3,18 +3,26 @@
 
 
 {% block main %}
-Post Details
-<p><a href="/">Home</a></p>
-<p><a href="/new/">New Post</a></p>
+
+<h2>Post Details</h2>
+<br/>
+<h4>
+    <a href="/">Home Page</a>
+    <p></p>
+    <a href="/new/">Create New Post</a>
+</h4>
+
 <p></p>
     <h5>{{post.post_title}}</h5>
     <p>{{post.post_details}}</p>
     <p>
-        {% if post.post_image_1 %}
-            <img src={{post.post_image_1.url}}/>
-        {% endif %}
         {% if post.post_attachment %}
             <a href="{{post.post_attachment.url}}">{{post.post_attachment.url}}</a>
+        {% endif %}
+    </p>
+    <p>
+        {% if post.post_image_1 %}
+            <img src={{post.post_image_1.url}}/>
         {% endif %}
     </p>
 

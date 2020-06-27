@@ -3,14 +3,25 @@
 
 
 {% block main %}
-Home Page
+<h2>Home Page</h2>
+<br/>
+<h4>
+    <a href="/new/">Create New Post</a>
+</h4>
 
-
-<p><a href="/new/">New Post</a></p>
 <hr>
-    {% for i in posts %}
-        <a href="view/{{ i.post_url }}">{{i.post_title}}</a>
-        {{i.post_details}}
-        <hr>
+<h5>Current Posts</h5>
+<table style="width:100%; border:1px dotted black; border-collapse:collapse">
+    <tr style="border:1px dotted black; border-collapse:collapse">
+        <th>Post Title</th>
+        <th>Post Details</th>
+    </tr>
+        {% for i in posts %}
+    <tr style="border:1px dotted black; border-collapse:collapse">
+        <td><a href="view/{{ i.post_url }}">{{i.post_title}}</a></td>
+        <td>{{i.post_details}}</td>
+    </tr>
     {% endfor %}
+</table>
+
 {% endblock %}
