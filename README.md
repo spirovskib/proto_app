@@ -41,5 +41,5 @@ while in proto_application folder run:
 
     https://pypi.org/project/python-magic/
 
-### Running of the app (on localshost at port 8000)  
+### Running of the app (on localhost at port 8000)  
     python manage.py runserver

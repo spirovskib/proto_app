@@ -1,6 +1,7 @@
 from application.forms import Post_Submission_Form
 from application.models import Post
 from django.shortcuts import render, get_object_or_404, redirect
+from application.constants import *
 from PIL import Image
 import io
 
@@ -34,9 +35,9 @@ def new_post_view(request, *args, **kwargs):
                 image = Image.open(instance.post_image_1)
                 w,h=image.size
                 ratio = w/h
-                w1 = 800
-                h1 = int(w1/ratio)
-                image = image.resize((w1, h1), Image.ANTIALIAS)
+                resize_width = 800
+                resize_height = int(resize_width/ratio)
+                image = image.resize((resize_width, resize_height), Image.ANTIALIAS)
                 image_file = io.BytesIO()
                 image.save(image_file, 'JPEG', quality=99)
                 instance.post_image_1.file=image_file

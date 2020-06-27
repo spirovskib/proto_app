@@ -25,7 +25,6 @@ PROJECT_DIR=os.path.dirname(__file__)
 SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
 with open(  SECRET_FILE) as f:
     SECRET_KEY = f.read().strip()
-# setenv LC_ALL C; tr -dc A-Za-z0-9 < /dev/urandom | head -c100 > RandomFile.txt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
