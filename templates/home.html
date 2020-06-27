@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+Home Page
+
+
+<p><a href="/new/">New Post</a></p>
+<hr>
+    {% for i in posts %}
+        <a href="view/{{ i.post_url }}">{{i.post_title}}</a>
+        {{i.post_details}}
+        <hr>
+    {% endfor %}
+{% endblock %}
