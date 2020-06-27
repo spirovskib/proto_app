@@ -1,3 +1,5 @@
+.gitignore
 media_assets/
 db.sqlite3
 proto_app.code-workspace
+secret_key.txt
