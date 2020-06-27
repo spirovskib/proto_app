@@ -1,15 +1,40 @@
-This is a demo application to test out the upload of files and images.
+# Proto_App is a demo Web application  
+## Proto_App runs Python 3 and Django 3. The database is local SQLite3 file.  
+  
+**Important: Not production grade! Run only for educational purposes!**   
 
-Criteria for success:
-DONE: Mime type, extension checking for PDF and size limits on uploaded file - Done in the views, validators and models of the application.
-DONE: Cleanup of files if the post referencing them is deleted.
-DONE: Better success - getting the validator errors back to frontend. Don't re-instantaniate the form on save validation to get the errors.
+There is no attempt at visual aesthetics (no CSS nor any advanced HTML)  
+  
+### Functionalities  
+- Creation of simple posts with title, text, image and PDF upload
+- Listing of created posts
+- Viewing of individual post
+- Automatic Image resize on upload
+- File size and format verification on upload (checking extension, size and mimetype)
+- Automatic cleanup of files on delete of post
+- Django Admin Interface (available after creating superuser during installation)
 
-Even better success - antivirus integration (clamav - later)
+### Installation  
+#### Create a folder and create virtual environment  
+  
+    mkdir proto_application
+    cd proto_application
+    virtualenv -p python3 .
 
-DONE: Image resize and checking for upload of image - Done on backend.
+#### To run setup as well as the app always activate the virtual env  
+    source bin/activate
+  
+#### Download the repo:  
+while in proto_application folder run:  
+    git clone https://github.com/spirovskib/proto_app
+
+#### Initial setup (in the folder where the git clone stored the code):  
+    pip install -r requirements.txt
+    LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 > secret_key.txt
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py createsuperuser
 
 
-Full success - frontend check of file size before uploading.
-
-
+### Running of the app (on localshost at port 8000)  
+    python manage.py runserver

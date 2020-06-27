@@ -20,8 +20,12 @@ PROJECT_DIR=os.path.dirname(__file__)
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd*&$h@54d=z@jc=@p#!3+k^uvlhqw#(opp#=&x%evrd#e-lmx!'
-
+# to generate secret key run
+# LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 && echo
+SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
+with open(  SECRET_FILE) as f:
+    SECRET_KEY = f.read().strip()
+# setenv LC_ALL C; tr -dc A-Za-z0-9 < /dev/urandom | head -c100 > RandomFile.txt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
