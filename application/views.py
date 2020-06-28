@@ -1,7 +1,8 @@
 from application.forms import Post_Submission_Form
 from application.models import Post
 from django.shortcuts import render, get_object_or_404, redirect
-from application.constants import *
+from application.constants import MAX_RESIZE_WIDTH, MAX_RESIZE_HEIGHT
+
 from PIL import Image
 import io
 
@@ -34,13 +35,18 @@ def new_post_view(request, *args, **kwargs):
             if instance.post_image_1:
                 image = Image.open(instance.post_image_1)
                 w,h=image.size
-                ratio = w/h
-                resize_width = 800
-                resize_height = int(resize_width/ratio)
-                image = image.resize((resize_width, resize_height), Image.ANTIALIAS)
-                image_file = io.BytesIO()
-                image.save(image_file, 'JPEG', quality=99)
-                instance.post_image_1.file=image_file
+                if w > MAX_RESIZE_WIDTH or h > MAX_RESIZE_HEIGHT:
+                    ratio = w/h
+                    if ratio > 1:
+                        resize_height = int(MAX_RESIZE_WIDTH/ratio)
+                        resize_width = MAX_RESIZE_WIDTH
+                    else:
+                        resize_width = int(ratio/MAX_RESIZE_HEIGHT)
+                        resize_height = MAX_RESIZE_HEIGHT
+                    image = image.resize((resize_width, resize_height), Image.ANTIALIAS)
+                    image_file = io.BytesIO()
+                    image.save(image_file, 'JPEG', quality=95)
+                    instance.post_image_1.file=image_file
             #resizing of input image
             instance.save()
             url_link = instance.post_url

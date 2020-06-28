@@ -20,13 +20,14 @@ from application.views import home_view, post_detail_view, new_post_view
 
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
     path('view/<slug:slug>', post_detail_view, name='post_detail'),
     path('new/', new_post_view, name='new_post'),
-
 ]
 
 if settings.DEBUG: 

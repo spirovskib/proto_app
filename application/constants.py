@@ -14,14 +14,14 @@
     500MB - 429916160
 
 """
-valid_extensions = ['.pdf']
-max_size = 5242880
-valid_mime_types = ['application/pdf']
+VALID_FILE_EXTENSIONS = ['.pdf']
+MAX_FILE_SIZE = 2621440 # 2.5 MB of file size max
+VALID_MIME_TYPES = ['application/pdf']
 
 #File Validation for the Attachments
 
 # Image Upload Resize Width 
 # Resize height is calculated in the view during resize
-resize_width = 800
-
+MAX_RESIZE_WIDTH = 800 # max image of 800x600
+MAX_RESIZE_HEIGHT = 600 # max image of 800x600
 # Image Upload Resize Width 
