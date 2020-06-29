@@ -15,12 +15,19 @@
     <tr style="border:1px dotted black; border-collapse:collapse">
         <th>Post Title</th>
         <th>Post Details</th>
+        <th>Post Image</th>
+        <th>Post Attachment</th>
     </tr>
         {% for i in posts %}
     <tr style="border:1px dotted black; border-collapse:collapse">
         <td><a href="view/{{ i.post_url }}">{{i.post_title}}</a></td>
         <td>{{i.post_details}}</td>
+        <td><img src={{i.post_image_1.url}}/></td>
+        {% if i.post_attachment %}
+            <td><a href="{{i.post_attachment.url}}">{{i.post_attachment.name}}</a></td>
+        {% endif %}
     </tr>
+
     {% endfor %}
 </table>
 
