@@ -1,7 +1,7 @@
 from application.forms import Post_Submission_Form
 from application.models import Post
 from django.shortcuts import render, get_object_or_404, redirect
-from application.constants import MAX_RESIZE_WIDTH, MAX_RESIZE_HEIGHT
+from settings.constants import MAX_RESIZE_WIDTH
 
 from PIL import Image
 import io

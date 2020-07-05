@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     #application apps
     'application',
+    'settings',
 
     #this app must be last to have proper file cleanup
     'django_cleanup.apps.CleanupConfig',
@@ -122,8 +123,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
