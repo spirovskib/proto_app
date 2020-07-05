@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'application',
     'settings',
 
+   #third party tools
+    'crispy_forms',
+
     #this app must be last to have proper file cleanup
     'django_cleanup.apps.CleanupConfig',
 ]
@@ -129,9 +132,11 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static-assets/')
+STATIC_ROOT = os.path.join(BASE_DIR,'static_assets/')
 #STATIC_ROOT = os.path.join(PROJECT_DIR,'static/') #this should probably be modified to actually point to a static folder somewhere i production
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static_data/')
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media_assets/')

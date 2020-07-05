@@ -4,16 +4,9 @@
 
 {% block main %}
 
-<h2>Post Details</h2>
-<br/>
-<h4>
-    <a href="/">Home Page</a>
-    <p></p>
-    <a href="/new/">Create New Post</a>
-</h4>
-
+<h5>Post Details</h5>
 <p></p>
-    <h5>{{post.post_title}}</h5>
+    <strong>{{post.post_title}}</strong>
     <p>{{post.post_details}}</p>
     <p>
         {% if post.post_attachment %}

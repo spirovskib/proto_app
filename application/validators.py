@@ -1,5 +1,5 @@
 import magic
-from application.constants import VALID_FILE_EXTENSIONS, VALID_MIME_TYPES, MAX_FILE_SIZE
+from settings.constants import VALID_FILE_EXTENSIONS, VALID_MIME_TYPES, MAX_FILE_SIZE
 
 #in order to run magic you need to 
 

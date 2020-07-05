@@ -1,18 +1,13 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 
 {% block main %}
 
-<h2>Create New Post</h2>
-<br/>
-<h4>
-    <a href="/">Home Page</a>
-</h4>
-
+<h5>Create New Post</h5>
     <form method="POST" enctype="multipart/form-data" action="">
         {% csrf_token %}
-        <h5>Submitting post:</h5>
-        {{ submission_form.as_p }}
+        {{ submission_form|crispy }}
         <input type="submit" value="Submit">
     </form>
 {% endblock %}
