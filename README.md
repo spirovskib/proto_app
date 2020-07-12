@@ -33,8 +33,13 @@ while in proto_application folder run:
 #### Initial setup (in the folder where the git clone stored the code):  
     pip install -r requirements.txt
     LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 > secret_key.txt
-    python manage.py makemigrations
+    python manage.py makemigrations accounts
+    python manage.py migrate accounts
+    python manage.py makemigrations 
     python manage.py migrate
+    python manage.py makemigrations application
+    python manage.py migrate
+
     python manage.py createsuperuser
 
 *Important: the python-magic is a wrapper around the libmagic C library, and that must be installed as well. More details on installation of libmagic here:*

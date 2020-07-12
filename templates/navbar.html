@@ -21,15 +21,34 @@
               Create New Post
             </a>
           </li>
+          {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-user"></span>
+              Account
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-              <a class="dropdown-item" href="#">TBD1</a>
-              <a class="dropdown-item" href="#">TBD2</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+              <a class="dropdown-item" href="#">{{request.user.profile.name}}</a>
+              <hr/>
+              <a class="dropdown-item" href="/profile">Profile</a>
+              <a class="dropdown-item" href="/settings">Settings</a>
+              <hr>
+              <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <button class="dropdown-item" type="submit">Logout</button>
+              </form>
             </div>
           </li>
+        {% else %}
+          <li class="nav-item">
+            <form class="form-inline" action="{% url 'account_login' %}">
+              <button class="btn btn-danger" type="submit">Login</button>
+            </form>
+          </li>  
+      {% endif %}
         </ul>
       </div>
     </div>

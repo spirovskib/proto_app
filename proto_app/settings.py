@@ -40,17 +40,34 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', #this app is apparently required by Django AllAuth. No more details...
+
 
     #application apps
     'application',
     'settings',
+    'accounts',
 
    #third party tools
     'crispy_forms',
 
     #this app must be last to have proper file cleanup
     'django_cleanup.apps.CleanupConfig',
+
+
+    #allauth applications
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #allauth providers
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google'
+
+
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,6 +96,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# The AUTH USER MODEL TELLS DJANGO WHAT TO AUTHENTICATE ON - OTHERWISE THERE WILL BE ERRORS
+AUTH_USER_MODEL = 'accounts.User_Account'
 
 WSGI_APPLICATION = 'proto_app.wsgi.application'
 
@@ -141,3 +161,25 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media_assets/')
 
+## The parameters below are from the AllAuth Social Login. 
+#this is the first site ID (default) required by the Django Contrib Sites app 
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.ProperSocialAccountAdapter'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True 
+ACCOUNT_EMAIL_VERIFICATION = "none"

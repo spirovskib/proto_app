@@ -2,6 +2,8 @@ from application.forms import Post_Submission_Form
 from application.models import Post
 from django.shortcuts import render, get_object_or_404, redirect
 from settings.constants import MAX_RESIZE_WIDTH
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from PIL import Image
 import io
@@ -18,6 +20,7 @@ def home_view(request, *args, **kwargs):
     }
     return render(request, "home.html", context)
 
+@login_required(login_url='account_login')
 def post_detail_view(request, slug):  
     post = Post.objects.get(post_url = slug)
     #return HttpResponse("<h1>Home Page</h1>") 
@@ -26,6 +29,7 @@ def post_detail_view(request, slug):
     }
     return render(request, "view.html", context)
 
+@login_required(login_url='account_login')
 def new_post_view(request, *args, **kwargs):  
     if request.method == 'POST' : 
         submission_form = Post_Submission_Form(request.POST,request.FILES)
