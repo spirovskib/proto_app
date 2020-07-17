@@ -2,18 +2,32 @@
 ### Proto_App runs Python 3 and Django 3. The database is local SQLite3 file.  
   
 **Important: Not production grade! Run only for educational purposes!**   
-
-There is no attempt at visual aesthetics (no CSS nor any advanced HTML)
+  
+The ProtoApp application is a very simple application suitable for demo and educational purposes. 
 This application is a POC
   
 ### Functionalities  
-- Creation of simple posts with title, text, image and PDF upload
-- Listing of created posts
-- Viewing of individual post
-- Automatic Image resize on upload
-- File size and format verification on upload (checking extension, size and mimetype)
-- Automatic cleanup of files on delete of post
-- Django Admin Interface (available after creating superuser during installation)
+  
+#### Elements of the ProtoApp:
+  
+- The ProtoApp allows the creation of projects and posts within each project. 
+- Access to the projects is restricted. The creator of the project needs to add the other users to the respective project. 
+- Ability to create a project is controlled by a credits field in the user profile. 
+- Each project has two permission roles: User and Admin. The Admin role can add or remove users. The User role can create posts within the Project.
+- The posts in the application allow for upload of an image as well as PDF attachment. Both file objects are validated using extensions and mimetype (magic numbers). 
+- The users are self-registering to the application. 
+- Each user can be a member of multiple projects at the same time. 
+- There is a general message board that is visible by all registered users on the home page, named Notes.
+- Every registered user can add a note to the general message board.
+- Automatic cleanup of files on delete of post (currently only from admin interface)
+  
+#### Limitations worth noting: 
+  
+- The superuser created at install is the only one that has access to the admin panel (URL/admin)
+- There are NO user facing profile nor password management capabilities.
+- By default the users do not have credits and the superuser needs to add credits to the users.
+- Uploaded files are limited to 2.5MB per file
+- Uploaded images will be proportionally resized to max 800px width or 600px height (whichever side is larger)
 
 ### Installation  
 #### Create a folder and create virtual environment  

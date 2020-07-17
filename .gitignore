@@ -3,3 +3,4 @@ db.sqlite3
 secret_key.txt
 media_assets/
 static_data/
+*/__pycache_

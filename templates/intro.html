@@ -1,0 +1,25 @@
+<h4>Welcome to BeyondMachines Prototype Application (ProtoApp)</h4>
+
+<p>The ProtoApp application is a very simple application suitable for demo and educational purposes.</p> 
+<p><strong>It is NOT PRODUCTION GRADE application. Do not use it in production.</strong></p>
+
+<h5>Elements of the ProtoApp:</h5>
+<ul>
+  <li>The ProtoApp allows the creation of projects and posts within each project. </li>
+  <li>Access to the projects is restricted. The creator of the project needs to add the other users to the respective project. </li>
+  <li>Ability to create a project is controlled by a credits field in the user profile. </li>
+  <li>Each project has two permission roles: User and Admin. The Admin role can add or remove users. The User role can create posts within the Project.</li>
+  <li>The posts in the application allow for upload of an image as well as PDF attachment. Both file objects are validated using extensions and mimetype (magic numbers).</li>
+  <li>The users are self-registering to the application. </li>
+  <li>Each user can be a member of multiple projects at the same time.</li>
+  <li>There is a general message board that is visible by all registered users on the home page, named Notes.</li>
+</ul>
+
+<h5>Limitations worth noting: </h5>
+<ul>
+  <li>The superuser created at install is the only one that has access to the admin panel (URL/admin)</li>
+  <li>There are NO user facing profile nor password management capabilities.</li>
+  <li>By default the users do not have credits and the superuser needs to add credits to the users.</li>
+  <li>Uploaded files are limited to 2.5MB per file</li>
+  <li>Uploaded images will be proportionally resized to max 800px width or 600px height (whichever side is larger)</li>
+</ul>
