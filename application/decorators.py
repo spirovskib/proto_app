@@ -1,6 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_list_or_404, get_object_or_404
+
 
 from application.models import Project, Post
 
@@ -9,6 +11,7 @@ from application.models import Project, Post
 ### example use:     @user_is_in_project
 def user_is_in_project(function):
     def wrap(request, *args, **kwargs):
+        reference = get_object_or_404(Project, project_url=kwargs['slug'])
         if Project.objects.filter(project_url = kwargs['slug']):
             project = Project.objects.get(project_url = kwargs['slug'])
         else:
@@ -31,6 +34,7 @@ def user_is_in_project(function):
 
 def user_is_admin_in_project(function):
     def wrap(request, *args, **kwargs):
+        reference = get_object_or_404(Project, project_url=kwargs['slug'])
         if Project.objects.filter(project_url = kwargs['slug']):
             project = Project.objects.get(project_url = kwargs['slug'])
         else:

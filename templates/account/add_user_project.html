@@ -40,11 +40,21 @@
                     <label for="user">User</label><br>
                     <input type="radio" id="admin" name="user_group" value="admin">
                     <label for="admin">Admin</label><br>
-                    <button type="submit" class="btn btn-secondary btn-block" aria-label="Left Align">
-                        Submit
-                     </button>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-header">
+                                <a class="btn btm-sm btn-secondary" href="{% url 'project_detail' project_url %} ">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="card-header">
+                                <button type="submit" class="btn btn-info btn-block" aria-label="Left Align">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     </form>
-
                 </div>
             </div>        
         </div>

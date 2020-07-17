@@ -4,6 +4,7 @@ from slugify import slugify
 import random
 import string
 from settings.validators import validate_file_type_size
+from accounts.models import User_Account
 
 
 # Create your models here.
@@ -64,3 +65,19 @@ class Post(models.Model):
         if not self.post_url:
             self.post_url = slugify(self.post_title+'-'+str(self.post_published_date)+'-'+str(random.choices(string.ascii_uppercase + string.digits, k=4)))
         super(Post, self).save(*args, **kwargs)
+
+
+class Note(models.Model):
+    note_author = models.ForeignKey(User_Account,blank=False,null=True,on_delete=models.SET_NULL)
+    note_title = models.CharField(max_length=70, blank=False, null=False)
+    note_url = models.SlugField(max_length=100, blank=True, null=True) #the slug text for the url
+    note_details = models.TextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
+    note_published_date = models.DateField(blank=True, null=False, default=date.today)
+  
+    def __str__(self):
+        return self.post_title
+
+    def save(self, *args, **kwargs): # the autogeneration of the slug for the post
+        if not self.note_url:
+            self.note_url = slugify(self.note_title+'-'+str(self.note_published_date)+'-'+str(random.choices(string.ascii_uppercase + string.digits, k=4)))
+        super(Note, self).save(*args, **kwargs)

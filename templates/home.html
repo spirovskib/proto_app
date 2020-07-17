@@ -11,15 +11,41 @@
                 <div class="card-body">
                     <table class="table table-sm">
                             <tr>
-                                <th>Project Title</th>
-                                <th>Project Details</th>
-                                <th>View Project</th>
+                                <th class="w-25 p-3">Project Title</th>
+                                <th class="w-50 p-3">Project Details</th>
+                                <th class="w-25 p-3">View Project</th>
                             </tr>
                             {% for i in projects %}
                             <tr>
                                 <td><a href="{% url 'project_detail' i.project_url %}">{{i.project_name}}</a></td>
-                                <td>{{i.project}}</td>
+                                <td>{{i.project_intro|truncatewords:15}}</td>
                                 <td><a class="btn btm-sm btn-info" href="{% url 'project_detail' i.project_url %}">View Project</a></td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+        </div>
+
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-12">
+        <div class="card">
+                <div class="card-header">
+                    Current Notes
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                            <tr>
+                                <th class="w-25 p-3">Note Title</th>
+                                <th class="w-50 p-3">Note Details</th>
+                                <th class="w-25 p-3">Author</th>
+                            </tr>
+                            {% for j in notes %}
+                            <tr>
+                                <td><a href="{% url 'view_note' j.note_url %}">{{j.note_title}}</a></td>
+                                <td>{{j.note_details|truncatewords:15}}</td>
+                                <td>{{j.note_author.profile.name}}</td>
                             </tr>
                             {% endfor %}
                     </table>

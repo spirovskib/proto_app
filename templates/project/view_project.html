@@ -39,15 +39,15 @@
             <div class="card-body">
                 <table class="table table-sm">
                     <tr>
-                        <th>Post Title</th>
-                        <th>Post Details</th>
-                        <th>Post Image</th>
-                        <th>Post Attachment</th>
+                        <th class="w-25">Post Title</th>
+                        <th class="w-25">Post Details</th>
+                        <th class="w-25">Post Image</th>
+                        <th class="w-25">Post Attachment</th>
                     </tr>
                     {% for i in posts %}
                         <tr>
                             <td><a href="{% url 'view_post' i.post_url %}">{{i.post_title}}</a></td>
-                            <td>{{i.post_details}}</td>
+                            <td>{{i.post_details|truncatewords:5|truncatechars:50}}</td>
                             {% if i.post_image_1 %}
                                 <td><img src="{{i.post_image_1.url}}" class="img-fluid"></td>
                             {% else %}
@@ -74,18 +74,16 @@
             <div class="card-body">
                 <table class="table table-sm">
                         <tr>
-                            <th>User Name</th>
-                            <th>User Email</th>
-                            <th>Manage</th>
-                            <th>Remove</th>
+                            <th class="w-25">User Name</th>
+                            <th class="w-50">User Email</th>
+                            <th class="w-25">Remove</th>
                         </tr>
                         {% for queryset in users_in_group %}
                             {% for i in queryset %}
                             <tr>
                                 <td>{{i.profile.name}}</td>
                                 <td>{{i.email}}</td>
-                                <td><a class="btn btm-sm btn-info" href=" ">Manage User</a></td>
-                                <td><a class="btn btm-sm btn-danger" href=" ">Remove User from Project</a></td>
+                                <td><a class="btn btm-sm btn-danger" href="{% url 'delete_user_project' project.project_url i.email %}">Remove User from Project</a></td>
 
                             </tr>
                             {% endfor %}

@@ -55,6 +55,7 @@ class User_Account(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User_Account, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=True)
+    project_credits = models.IntegerField(null=True, blank=True,default=0)
     private_profile = models.BooleanField(default=False, null=False)
     consent_marketing_notifications = models.BooleanField(default=True, null=False)
     user_profile_url = models.SlugField(max_length=100, blank=True, null=True, unique = True) #the slug field for the public profile url
