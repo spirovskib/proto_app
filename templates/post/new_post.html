@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block main %}
+
+<div class="row justify-content-center mb-2">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                <strong>Create New Post</strong>
+            </div>
+            <div class="card-header">
+                Project: {{reference.project_name}}
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" action="">
+                    {% csrf_token %}
+                    {{ submission_form|crispy }}
+                    <p></p>
+                    <center>
+                    <button type="submit">Submit</button>
+                    </center>
+                </form>
+            </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

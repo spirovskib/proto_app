@@ -24,3 +24,4 @@ class ProfileForm(ModelForm):
         widgets = {
             'user_bio': Textarea(attrs={'rows': 10}),
         }
+

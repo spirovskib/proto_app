@@ -1,7 +1,7 @@
 from django.forms import ModelForm, Textarea, TextInput
 from django import forms
 from crispy_forms.helper import FormHelper
-from application.models import Post
+from application.models import Post, Project
 from django.utils.translation import gettext_lazy as _
 
 #import magic
@@ -25,6 +25,22 @@ class Post_Submission_Form(forms.ModelForm):
         widgets = {
             'post_title': TextInput(attrs={'size': 30}),
             'post_details': Textarea(attrs={'rows': 10}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post' # get or post
+
+
+class Project_Creation_Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('project_name','project_active','project_intro','project_start_date','project_end_date')
+
+        widgets = {
+            'project_name': TextInput(attrs={'size': 30}),
+            'project_intro': Textarea(attrs={'rows': 10}),
         }
 
     def __init__(self, *args, **kwargs):

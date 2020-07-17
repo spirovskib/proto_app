@@ -10,10 +10,14 @@ class AccountAdmin(UserAdmin):
     search_fields = ('email','is_admin')
     readonly_fields = ('email','date_joined', 'last_login')
     ordering = ('email','is_admin')
+    fieldsets = (
+        (None, {'fields': ('email', 'username')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser','groups', 'user_permissions')}),
+    )
+#    filter_horizontal = ()
+#    list_filter = ()
+#    fieldsets = ()
 
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
 
 admin.site.register(User_Account, AccountAdmin)
 #END: this is the view for the custom user accounts

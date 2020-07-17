@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+
+<div class="row justify-content-center mb-2">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header">
+                <strong>{{post.post_title}}</strong>
+            </div>
+            <div class="card-header">
+                <a href="{% url 'project_detail' post.project.project_url %}">Project: {{post.project.project_name}}</a>
+            </div>
+            <div class="card-body">
+                <div class="card-group">
+                    <div class="card border-0">
+                        <div class="card-body">
+                            {{post.post_details}}
+                        </div>
+                    </div>
+                    <div class="card border-0">
+                        {% if post.post_image_1 %}
+                            <img class="card-img-top" src={{post.post_image_1.url}}>
+                        {% endif %}
+                        <div class="card-body">
+                            <p>
+                                {% if post.post_attachment %}
+                                Attached file: 
+                                    <a href="{{post.post_attachment.url}}">{{post.post_attachment.name}}</a>
+                                {% endif %}
+                            </p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

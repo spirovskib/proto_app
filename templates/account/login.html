@@ -14,44 +14,27 @@
 <div class="container w-50 h-100 py-5">
         <div class="card">
 			<div class="card-header">
-                <div class="container w-75 h-100">
+                <div class="container w-75 h-100 py-5">
                     <div class="d-flex justify-content-center">
                         <h3 id="form-title">Log In</h3>
                     </div>
-                    <a href="{% provider_login_url "google" %}">
-                        <button class="btn btn-danger btn-block" aria-label="Left Align" href="{% provider_login_url "google" %}">
-                            <span class="fab fa-google fa-lg""></span>
-                            Login with Google
-                        </button>
-                    </a>
-                    <button class="btn btn-primary btn-block mt-3" aria-label="Left Align" href="#">
-                        <span class="fab fa-twitter fa-lg"" aria-hidden="true"></span>
-                        Login with Twitter
-                    </button>
-                </div>
-            </div>
-                <div class="container w-75 h-100 py-5">
-                    {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
                     <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button type="submit">Log In</button>
+                    <button type="submit" class="btn btn-secondary btn-block" aria-label="Left Align">
+                        Sign In!
+                     </button>
                     </form>
                 </div>
             </div>        
             <div class="card-footer">
                 <a href="{% url 'account_signup' %}">
-                    <button class="btn btn-secondary btn-block" aria-label="Left Align"">
-                        No Social Accounts? Sign Up with your e-mail!
+                    <button class="btn btn-info btn-block" aria-label="Left Align">
+                        No Accounts? Sign Up!
                      </button>
                 </a>
             </div>
+        </div>
 </div>         
 
 

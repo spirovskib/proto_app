@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+
+{% block nav %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+
+
+{% block main %}
+
+<div class="container w-50 h-100 py-5">
+        <div class="card">
+            <div class="card-header">
+                <h5 id="form-title">Add User</h5>
+            </div>
+			<div class="card-header">
+                <div class="container w-75 h-100 py-5">
+                    <div class="d-flex justify-content-center">
+                        For project {{project}}
+                    </div>
+                    <hr>
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <p></p>
+                    <form method="post">
+                    {% csrf_token %}
+                    <label for="email">User email:</label><br>
+                    <input type="text" id="email" name="email"><br>
+                    <hr>
+                    permissions:<br>
+                    <input type="radio" id="user" name="user_group" value="user">
+                    <label for="user">User</label><br>
+                    <input type="radio" id="admin" name="user_group" value="admin">
+                    <label for="admin">Admin</label><br>
+                    <button type="submit" class="btn btn-secondary btn-block" aria-label="Left Align">
+                        Submit
+                     </button>
+                    </form>
+
+                </div>
+            </div>        
+        </div>
+</div>         
+
+
+    
+{% endblock %} 

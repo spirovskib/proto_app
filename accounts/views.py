@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 import datetime
 from django.db import models
 from accounts.forms import ProfileForm
@@ -10,52 +11,13 @@ from django.contrib.auth.decorators import login_required
 
 
 from accounts.models import Profile, User_Account
+from django.contrib.auth.models import Group
+from application.models import Project
+
+from django.contrib.auth.decorators import login_required
+from application.decorators import user_is_in_project, user_is_admin_in_project
 
 # Create your views here.
-
-
-# def register_view(request, *args, **kwargs):  # python specific http request and arguments: *args **kwargs. Using request.user is good for auth
-#     #return HttpResponse("<h1>Register Page</h1>") 
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     else:
-#         if request.method == 'POST' : 
-#             form = CreateUserForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 user_email = form.cleaned_data.get('email')
-#                 user_password = form.cleaned_data.get('password1')
-#                 account = authenticate(email=user_email, password=user_password)
-#                 login(request,account)
-#                 return redirect('home')
-#             else:
-#                 context= {'form':form}
-#         else: #get request here
-#             form = CreateUserForm()
-#             context = {'form':form}
-#         return render(request, "accounts/signup.html", context)
-
-
-# def login_view(request, *args, **kwargs):  # python specific http request and arguments: *args **kwargs. Using request.user is good for auth
-#     #return HttpResponse("<h1>Login Page</h1>") 
-#     #next=request.GET.get('next')
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     else:
-#         if request.method == 'POST':
-#             user_email = request.POST.get('email')
-#             user_password = request.POST.get('password')
-
-#             account = authenticate(email=user_email, password=user_password)
-
-#             if account is not None:
-#                 login(request, account)
-#                 return redirect('home')
-#             else:
-#                 messages.info(request,"Incorrect Email or Password")
-
-#         context = {}
-#         return render(request, "accounts/login.html", context)
 
 
 @login_required(login_url='account_login')
@@ -88,3 +50,49 @@ def profile_user_view(request, slug):  # python specific http request and argume
         #'topic_visits': topic_visits, #third graph data
     }
     return render(request, "account/user_profile.html", context) 
+
+
+@login_required(login_url='account_login')
+@user_is_in_project
+def manage_users_view(request, slug):  
+    reference = get_object_or_404(Project, project_url=slug)
+    proj_name = reference.project_name.replace(" ", "_")
+    groups = Group.objects.filter(name__startswith = proj_name)
+    users_in_group=[]
+    for i in groups:
+        users_in_group.append(Group.objects.get(name = i.name).user_set.all())
+    context = {
+        'users_in_group':users_in_group
+    }
+    return render(request, "account/manage_users.html", context)
+
+
+
+@login_required(login_url='account_login')
+@user_is_admin_in_project
+def add_user_project_view(request, slug):  
+    reference = get_object_or_404(Project, project_url=slug)
+    proj_name = reference.project_name.replace(" ", "_")
+    groups = Group.objects.filter(name__startswith = proj_name)
+    email = ''
+    user_group = groups
+    if request.method == 'POST' :
+        email = request.POST.get('email').lower()
+        user_group = request.POST.get('user_group')
+        if User_Account.objects.filter(email = email):
+            user = User_Account.objects.get(email = email)
+            group_name=proj_name+'_'+user_group
+            if group_name in user.groups.all(): 
+                messages.error(request, "User is already in group")
+            else:
+                group = Group.objects.get(name = group_name)
+                user.groups.add(group)
+                return redirect('project_detail', slug) 
+        else:
+            messages.error(request, "Non-Existent E-mail")       
+    context = {
+        'project' : reference.project_name,
+        'user_group' : user_group,
+        'email' : email
+    }
+    return render(request, "account/add_user_project.html", context)

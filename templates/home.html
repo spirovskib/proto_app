@@ -2,33 +2,30 @@
 
 
 {% block main %}
-<div class="row">
+<div class="row mb-2">
     <div class="col-md-12">
-        <h5>Current Posts</h5>
-        <table class="table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="col-sm-2">Post Title</th>
-                    <th class="col-sm-2">Post Details</th>
-                    <th class="col-sm-6">Post Image</th>
-                    <th class="col-sm-2">Post Attachment</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in posts %}
-                <tr>
-                    <td><a href="view/{{ i.post_url }}">{{i.post_title}}</a></td>
-                    <td>{{i.post_details}}</td>
-                    <td><img src={{i.post_image_1.url}} class="img-fluid"></td>
-                    {% if i.post_attachment %}
-                        <td><a href="{{i.post_attachment.url}}">{{i.post_attachment.name}}</a></td>
-                    {% else %}
-                        <td>No attachment</td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="card">
+                <div class="card-header">
+                    Current Projects
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                            <tr>
+                                <th>Project Title</th>
+                                <th>Project Details</th>
+                                <th>View Project</th>
+                            </tr>
+                            {% for i in projects %}
+                            <tr>
+                                <td><a href="{% url 'project_detail' i.project_url %}">{{i.project_name}}</a></td>
+                                <td>{{i.project}}</td>
+                                <td><a class="btn btm-sm btn-info" href="{% url 'project_detail' i.project_url %}">View Project</a></td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}
