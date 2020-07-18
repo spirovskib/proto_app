@@ -33,7 +33,7 @@ with open(  SECRET_FILE) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1', 'localhost').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Application definition
 
@@ -214,7 +214,7 @@ logging.config.dictConfig({
         'file': {
             'class': 'logging.FileHandler',
             'formatter': 'django',
-            'filename': 'protapp.log',
+            'filename': 'proto_app.log',
         },
         'console': {
             'class': 'logging.StreamHandler',
