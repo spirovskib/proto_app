@@ -23,7 +23,6 @@ def user_is_in_project(function):
         group_list = []
         for i in groups:
             group_list.append(i.name)
-        print(group_list)
         if request.user.groups.filter(name__in=group_list):
             return function(request, *args, **kwargs)
         else:
