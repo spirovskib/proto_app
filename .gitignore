@@ -3,5 +3,5 @@ db.sqlite3
 secret_key.txt
 media_assets/
 static_data/
-*/__pycache_
-protoapp.log
+*/__pycache__/
+proto_app.log
