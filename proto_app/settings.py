@@ -196,7 +196,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGGING_CONFIG = None
 
 # Get loglevel from env
-LOGLEVEL = os.getenv('DJANGO_LOGLEVEL', 'warning').upper()
+LOGLEVEL = os.getenv('DJANGO_LOGLEVEL', 'info').upper()
 
 
 logging.config.dictConfig({
