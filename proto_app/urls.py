@@ -26,6 +26,8 @@ handler403 = err_handler403
 handler404 = err_handler404
 
 urlpatterns = [
+    re_path(r'^media/', protected_media_view, name="protect_media"),
+ #   path('media/<path>', protected_media_view, name='protected_media'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', home_view, name='home'),
@@ -37,7 +39,6 @@ urlpatterns = [
     path('project/<slug:slug>', project_detail_view, name='project_detail'),   
     path('add_user_project/<slug:slug>', add_user_project_view, name='add_user_project'),   
     path('delete_user_project/<slug:slug>,<str:pk_email>', delete_user_project_view, name='delete_user_project'),   
-    path('media/<path>', protected_media_view, name='protected_media'),
 ]
 
 if settings.DEBUG: 

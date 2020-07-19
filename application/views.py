@@ -192,9 +192,12 @@ def project_detail_view(request, slug):
     return render(request, "project/view_project.html", context)
 
 #The protected media files access path
+#@login_required(login_url='account_login')
+
 @login_required(login_url='account_login')
-def protected_media_view(request,path):
+def protected_media_view(request):
     response = HttpResponse()
     response['Content-Type'] = ''
-    response['X-Accel-Redirect'] = '/media-files/' + path
+    res = request.path[7:] # slice off the 7 characters of the string "/media/"
+    response['X-Accel-Redirect'] = '/media-files/' + res
     return response
