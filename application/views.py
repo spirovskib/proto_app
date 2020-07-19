@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from application.decorators import user_is_in_project
 from accounts.models import User_Account, Profile
+from django.http import HttpResponse
 
 from PIL import Image
 import io
@@ -189,3 +190,11 @@ def project_detail_view(request, slug):
         'users_in_group':users_in_group
     }
     return render(request, "project/view_project.html", context)
+
+#The protected media files access path
+@login_required(login_url='account_login')
+def protected_media_view(request,path):
+    response = HttpResponse()
+    response['Content-Type'] = ''
+    response['X-Accel-Redirect'] = '/media-files/' + path
+    return response

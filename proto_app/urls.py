@@ -19,7 +19,7 @@ from django.urls import path, include,re_path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from application.views import home_view, view_post_detail, new_post_view, new_project_view, project_detail_view, err_handler403, err_handler404, new_note_view, view_note_detail
+from application.views import home_view, view_post_detail, new_post_view, new_project_view, project_detail_view, err_handler403, err_handler404, new_note_view, view_note_detail, protected_media_view
 from accounts.views import add_user_project_view, delete_user_project_view
 
 handler403 = err_handler403
@@ -37,6 +37,7 @@ urlpatterns = [
     path('project/<slug:slug>', project_detail_view, name='project_detail'),   
     path('add_user_project/<slug:slug>', add_user_project_view, name='add_user_project'),   
     path('delete_user_project/<slug:slug>,<str:pk_email>', delete_user_project_view, name='delete_user_project'),   
+    path('media/<path>', protected_media_view, name='protected_media'),
 ]
 
 if settings.DEBUG: 
