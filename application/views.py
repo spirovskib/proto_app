@@ -1,7 +1,7 @@
 from application.forms import Post_Submission_Form, Project_Creation_Form, Note_Submission_Form
 from application.models import Post, Project, Note
 from django.shortcuts import render, get_object_or_404, redirect
-from settings.constants import MAX_RESIZE_WIDTH
+from settings.constants import MAX_RESIZE_WIDTH, MAX_RESIZE_HEIGHT
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from application.decorators import user_is_in_project
