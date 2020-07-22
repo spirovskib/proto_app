@@ -43,8 +43,8 @@ class Note_Submission_Form(forms.ModelForm):
             'note_details': _('Note Text'),
         }
         widgets = {
-            'post_title': TextInput(attrs={'size': 30}),
-            'post_details': Textarea(attrs={'rows': 5}),
+            'note_title': TextInput(attrs={'size': 30}),
+            'note_details': Textarea(attrs={'rows': 5}),
         }
 
     def __init__(self, *args, **kwargs):
