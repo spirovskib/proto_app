@@ -75,7 +75,7 @@ class Note(models.Model):
     note_published_date = models.DateField(blank=True, null=False, default=date.today)
   
     def __str__(self):
-        return self.post_title
+        return self.note_title
 
     def save(self, *args, **kwargs): # the autogeneration of the slug for the post
         if not self.note_url:
