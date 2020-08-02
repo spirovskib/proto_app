@@ -14,6 +14,8 @@
                 <form method="POST" enctype="multipart/form-data" action="">
                     {% csrf_token %}
                     {{ note_form|crispy }}
+                    {{ note_form.media }}
+                    {{ note_form.body }}
                     <p></p>
                     <center>
                     <button type="submit">Submit</button>

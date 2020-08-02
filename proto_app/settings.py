@@ -31,7 +31,7 @@ SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
 with open(  SECRET_FILE) as f:
     SECRET_KEY = f.read().strip()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', False)
+DEBUG = os.getenv('DJANGO_DEBUG', True)
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost,192.168.1.4,172.31.23.116,3.16.136.2,ako.beyondmachines.net').split(',')
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'accounts',
 
    #third party tools
+    'ckeditor',
     'crispy_forms',
 
     #this app must be last to have proper file cleanup
@@ -164,6 +165,20 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media_assets/')
+
+
+# CKEDITOR RICH TEXT EDITOR SETTING
+CKEDITOR_CONFIGS = {
+'default': {
+    'toolbar': [["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+                ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+                 'JustifyRight', 'JustifyBlock'],
+                ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript", "Superscript"], ['Undo', 'Redo'], ["Source"],
+                ],
+    'width': 'auto',
+          },
+    }
+
 
 ## The parameters below are from the AllAuth Social Login. 
 #this is the first site ID (default) required by the Django Contrib Sites app 

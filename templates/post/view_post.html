@@ -17,21 +17,22 @@
                 <div class="card-group">
                     <div class="card border-0">
                         <div class="card-body">
-                            {{post.post_details}}
+                            {{post.post_details | safe }}
                         </div>
                     </div>
-                    <div class="card border-0">
+                    <div class="card">
                         {% if post.post_image_1 %}
                             <img class="card-img-top" src={{post.post_image_1.url}}>
+                        {% else %}
+                            No Image Uploaded to Post.
                         {% endif %}
                         <div class="card-body">
-                            <p>
-                                {% if post.post_attachment %}
-                                Attached file: 
-                                    <a href="{{post.post_attachment.url}}">{{post.post_attachment.name}}</a>
-                                {% endif %}
-                            </p>
-                            </p>
+                            {% if post.post_attachment %}
+                            Attached file: 
+                                <a href="{{post.post_attachment.url}}">{{post.post_attachment.name}}</a>
+                            {% else %}
+                                No File Attached to Post.
+                            {% endif %}
                         </div>
                     </div>
                 </div>

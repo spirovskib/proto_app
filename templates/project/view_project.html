@@ -47,7 +47,7 @@
                     {% for i in posts %}
                         <tr>
                             <td><a href="{% url 'view_post' i.post_url %}">{{i.post_title}}</a></td>
-                            <td>{{i.post_details|truncatewords:5|truncatechars:50}}</td>
+                            <td>{{i.post_details|safe|truncatewords:5|truncatechars:50}}</td>
                             {% if i.post_image_1 %}
                                 <td><img src="{{i.post_image_1.url}}" class="img-fluid"></td>
                             {% else %}

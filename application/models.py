@@ -1,10 +1,12 @@
 from django.db import models
-from datetime import date 
+from datetime import date, datetime 
 from slugify import slugify
 import random
 import string
 from settings.validators import validate_file_type_size
 from accounts.models import User_Account
+from ckeditor.fields import RichTextField
+
 
 
 # Create your models here.
@@ -51,8 +53,8 @@ class Post(models.Model):
     post_title = models.CharField(max_length=70, blank=False, null=False)
     post_active = models.BooleanField(default=True, null=False) #null=True, default=True
     post_url = models.SlugField(max_length=100, blank=True, null=True) #the slug text for the url
-    post_details = models.TextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
-    post_published_date = models.DateField(blank=True, null=False, default=date.today)
+    post_details = RichTextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
+    post_published_date = models.DateTimeField(blank=True, null=False, auto_now=True)
     post_image_1 = models.ImageField(blank=True, null=True, 
         upload_to="images/%Y/%m/%d/",max_length=255)
     post_attachment = models.FileField(blank=True, null=True, 
@@ -71,8 +73,8 @@ class Note(models.Model):
     note_author = models.ForeignKey(User_Account,blank=False,null=True,on_delete=models.SET_NULL)
     note_title = models.CharField(max_length=70, blank=False, null=False)
     note_url = models.SlugField(max_length=100, blank=True, null=True) #the slug text for the url
-    note_details = models.TextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
-    note_published_date = models.DateField(blank=True, null=False, default=date.today)
+    note_details = RichTextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
+    note_published_date = models.DateTimeField(blank=True, null=False, auto_now=True)
   
     def __str__(self):
         return self.note_title
