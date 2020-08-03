@@ -28,17 +28,14 @@
             <div class="card-body">
                 <table class="table table-sm">
                         <tr>
-                            <th class="w-25">User Name</th>
-                            <th class="w-50">User Email</th>
-                            <th class="w-25">Action</th>
+                            <th class="w-50">User</th>
+                            <th class="w-50">Action</th>
                         </tr>
                         {% for queryset in users_in_group %}
                             {% for i in queryset %}
                             <tr>
                                 <td>{{i.profile.name}}</td>
-                                <td>{{i.email}}</td>
                                 <td><a class="btn btm-sm btn-danger" href="{% url 'delete_user_project' project.project_url i.email %}">Remove</a></td>
-
                             </tr>
                             {% endfor %}
                         {% endfor %}
