@@ -178,7 +178,7 @@ def new_project_view(request, *args, **kwargs):
 @user_is_in_project
 def project_detail_view(request, slug):  
     project = get_object_or_404(Project, project_url=slug)
-    posts = Post.objects.filter(project__project_url = slug)
+    posts = Post.objects.filter(project__project_url = slug).order_by('-post_published_date')
     proj_name = project.project_name.replace(" ", "_")
     groups = Group.objects.filter(name__startswith = proj_name)
     users_in_group=[]

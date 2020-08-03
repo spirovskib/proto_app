@@ -5,44 +5,66 @@
 {% block main %}
 
 <div class="row mb-2">
-    <div class="col-md-8">
-        <div class="card">
+    <div class="col-md-4">
+        <div class="card mb-2">
             <div class="card-header">
                 <h5>{{project.project_name}}</h5>
             </div>
             <div class="card-body">
-                <p>{{project.project_intro}}</p>
-            </div>
+                <p>{{project.project_intro | safe }}</p>
+            </div>      
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <form class="form-inline" action="{% url 'new_post' project.project_url %}">
-                    <button class="btn btn-info" type="submit">Create New Post</button>
-                </form>
-                <p></p>
-                <form class="form-inline" action="{% url 'add_user_project' project.project_url %}">
-                    <button class="btn btn-warning" type="submit">Add Users to Project</button>
-                </form>            
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-2">
-    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong>Current Posts</strong>
+                <div class="row">
+                    <div class="col-md-7">
+                        <strong>Project Users</strong>
+                    </div>
+                    <div class="col-md-5 float-right">
+                        <a class="btn btm-sm btn-info" href="{% url 'add_user_project' project.project_url %}">Add Users</a>
+                     </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                        <tr>
+                            <th class="w-25">User Name</th>
+                            <th class="w-50">User Email</th>
+                            <th class="w-25">Action</th>
+                        </tr>
+                        {% for queryset in users_in_group %}
+                            {% for i in queryset %}
+                            <tr>
+                                <td>{{i.profile.name}}</td>
+                                <td>{{i.email}}</td>
+                                <td><a class="btn btm-sm btn-danger" href="{% url 'delete_user_project' project.project_url i.email %}">Remove</a></td>
+
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                </table>            
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <strong>Current Posts</strong>
+                    </div>
+                    <div class="col-md-2 float-right">
+                        <a class="btn btm-sm btn-info" href="{% url 'new_post' project.project_url %}">New Post</a>
+                     </div>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-sm">
                     <tr>
-                        <th class="w-25">Post Title</th>
-                        <th class="w-25">Post Details</th>
+                        <th class="w-15">Post Title</th>
+                        <th class="w-auto">Post Details</th>
                         <th class="w-25">Post Image</th>
-                        <th class="w-25">Post Attachment</th>
+                        <th class="w-15">Post Attachment</th>
                     </tr>
                     {% for i in posts %}
                         <tr>
@@ -54,43 +76,16 @@
                                 <td>No Image Uploaded</td>
                             {% endif %}
                             {% if i.post_attachment %}
-                                <td><a href="{{i.post_attachment.url}}">{{i.post_attachment.name}}</a></td>
+                                <td><a href="{{i.post_attachment.url}}">Document Attached</a></td>
                             {% else %}
-                                <td>No Attachment Uploaded</td>
+                                <td>No Attachment</td>
                             {% endif %}
                         </tr>
                     {% endfor %}
-               </table>
+                </table>
             </div>
         </div>
     </div>
 </div>
-<div class="row mb-2">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>Project Users</strong>
-            </div>
-            <div class="card-body">
-                <table class="table table-sm">
-                        <tr>
-                            <th class="w-25">User Name</th>
-                            <th class="w-50">User Email</th>
-                            <th class="w-25">Remove</th>
-                        </tr>
-                        {% for queryset in users_in_group %}
-                            {% for i in queryset %}
-                            <tr>
-                                <td>{{i.profile.name}}</td>
-                                <td>{{i.email}}</td>
-                                <td><a class="btn btm-sm btn-danger" href="{% url 'delete_user_project' project.project_url i.email %}">Remove User from Project</a></td>
 
-                            </tr>
-                            {% endfor %}
-                        {% endfor %}
-                </table>            
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}

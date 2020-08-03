@@ -24,7 +24,7 @@ class Project(models.Model):
     project_active = models.BooleanField(default=True, null=False) #null=True, default=True
     # s: ModelChoiceField for the project type - learn how!
     project_url = models.SlugField(max_length=100, blank=True, null=True) #the slug text for the url
-    project_intro = models.TextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
+    project_intro = RichTextField(blank=False, null=False) #rich text version from ckedirot. PLEASE_NOTE That this field is NOT inherited from models
     project_start_date = models.DateField(blank=True, null=False, default=date.today)
     project_end_date = models.DateField(blank=True, null=True)
 

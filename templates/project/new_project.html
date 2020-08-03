@@ -14,10 +14,23 @@
                 <form method="POST" enctype="multipart/form-data" action="">
                     {% csrf_token %}
                     {{ project_form|crispy }}
+                    {{ project_form.media }}
+                    {{ project_form.body }}
                     <p></p>
-                    <center>
-                        <button type="submit">Submit</button>
-                    </center>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <a class="btn btm-sm btn-secondary" href="{% url 'home' %} ">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-info btn-block" aria-label="Left Align">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
       </div>

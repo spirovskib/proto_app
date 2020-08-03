@@ -15,47 +15,58 @@
 {% endif %}
 {% if request.user.is_authenticated %}
 <div class="row mb-2">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <div class="card">
                 <div class="card-header">
-                    Current Projects
+                    <div class="row">
+                        <div class="col-md-7">
+                            <strong>Current Projects</strong>
+                        </div>
+                        <div class="col-md-5 float-right">
+                            <a class="btn btm-sm btn-info" href="{% url 'new_project' %}">New Project</a>
+                         </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-sm">
                             <tr>
                                 <th class="w-25 p-3">Project Title</th>
-                                <th class="w-50 p-3">Project Details</th>
-                                <th class="w-25 p-3">View Project</th>
+                                <th class="w-75 p-3">Project Details</th>
                             </tr>
                             {% for i in projects %}
                             <tr>
                                 <td><a href="{% url 'project_detail' i.project_url %}">{{i.project_name}}</a></td>
-                                <td>{{i.project_intro|truncatewords:15}}</td>
-                                <td><a class="btn btm-sm btn-info" href="{% url 'project_detail' i.project_url %}">View Project</a></td>
+                                <td>{{i.project_intro|safe|truncatewords:15}}</td>
                             </tr>
                             {% endfor %}
                     </table>
                 </div>
         </div>
     </div>
-</div>
-<div class="row mb-2">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="card">
-                <div class="card-header">
-                    Current Notes
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <strong>Current Notes</strong>
+                    </div>
+                    <div class="col-md-2 float-right">
+                        <a class="btn btm-sm btn-info" href="{% url 'new_note' %}">New Note</a>
+                     </div>
                 </div>
+            </div>
                 <div class="card-body">
                     <table class="table table-sm">
                             <tr>
                                 <th class="w-25 p-3">Note Title</th>
-                                <th class="w-50 p-3">Note Details</th>
-                                <th class="w-25 p-3">Author</th>
+                                <th class="w-auto p-3">Note Details</th>
+                                <th class="w-15 p-3">Author</th>
+
                             </tr>
                             {% for j in notes %}
                             <tr>
                                 <td><a href="{% url 'view_note' j.note_url %}">{{j.note_title}}</a></td>
-                                <td>{{j.note_details|safe|truncatewords:10}}</td>
+                                <td>{{j.note_details|safe|truncatewords:20|truncatechars:60}}</td>
                                 <td>{{j.note_author.profile.name}}</td>
                             </tr>
                             {% endfor %}
