@@ -21,6 +21,7 @@ from ckeditor.fields import RichTextField
 
 class Project(models.Model):
     project_name = models.CharField(max_length=70, blank=False, null=False, unique = True)
+    project_code = models.CharField(max_length=70, blank=True, null=True, unique = True)
     project_active = models.BooleanField(default=True, null=False) #null=True, default=True
     # s: ModelChoiceField for the project type - learn how!
     project_url = models.SlugField(max_length=100, blank=True, null=True) #the slug text for the url
@@ -42,6 +43,8 @@ class Project(models.Model):
         return self.project_name
 
     def save(self, *args, **kwargs): # the autogeneration of the slug for the post
+        if not self.project_code:
+            self.project_code = str(self.project_name.replace(" ", "_"))
         if not self.project_url:
             self.project_url = slugify(self.project_name+'-'+str(self.project_start_date)+'-'+str(random.choices(string.ascii_uppercase + string.digits, k=4)))
         super(Project, self).save(*args, **kwargs)

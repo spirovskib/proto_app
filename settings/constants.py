@@ -15,7 +15,7 @@
 
 """
 VALID_FILE_EXTENSIONS = ['.pdf']
-MAX_FILE_SIZE = 2621440 # 2.5 MB of file size max
+MAX_FILE_SIZE = 5242880 # 5 MB of file size max
 VALID_MIME_TYPES = ['application/pdf']
 
 #File Validation for the Attachments

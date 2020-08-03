@@ -10,6 +10,7 @@ from django.http import HttpResponse
 
 from PIL import Image
 import io
+import re
 
 #this import is needed to create the groups of permissions
 from django.contrib.auth.models import Group, Permission
@@ -29,14 +30,22 @@ def err_handler404(request, exception):
 ### END Custom HTML error handlers for nicer error messages
 
 
-def home_view(request, *args, **kwargs):  
-    #return HttpResponse("<h1>Home Page</h1>") 
-    projects = Project.objects.filter(project_active=True).order_by('-project_start_date')
-    notes = Note.objects.all().order_by('-note_published_date')
-    context = {
-        'projects' : projects,
-        'notes' : notes
-    }
+def home_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        filter_groups=[]
+        user_groups=request.user.groups.all()
+        for group in user_groups:
+            group_code = (re.sub('\_admin$|\_user$', '', str(group)))
+            if group_code not in filter_groups:
+                filter_groups.append(group_code)
+        projects = Project.objects.filter(project_code__in=filter_groups,project_active=True).order_by('-project_start_date')
+        notes = Note.objects.all().order_by('-note_published_date')
+        context = {
+            'projects' : projects,
+            'notes' : notes
+        }
+    else:
+        context = { }
     return render(request, "home.html", context)
 
 @login_required(login_url='account_login')
