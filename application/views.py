@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from settings.constants import MAX_RESIZE_WIDTH, MAX_RESIZE_HEIGHT
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from application.decorators import user_is_in_project
+from application.decorators import user_is_in_project, user_can_access_file
 from accounts.models import User_Account, Profile
 from django.http import HttpResponse
 
@@ -204,6 +204,7 @@ def project_detail_view(request, slug):
 #@login_required(login_url='account_login')
 
 @login_required(login_url='account_login')
+@user_can_access_file
 def protected_media_view(request):
     response = HttpResponse()
     response['Content-Type'] = ''
