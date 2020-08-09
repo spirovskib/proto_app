@@ -5,3 +5,5 @@ secret_key.txt
 media_assets/
 static_data/
 proto_app.log
+.env.dev
+.env.prod

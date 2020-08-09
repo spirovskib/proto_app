@@ -1,5 +1,5 @@
 
-#File Validation for the Attachments
+# File Validation for the Attachments
 """
 * valid_extensions - list containing allowed file extensions. Example: ['.pdf', '.jpg']
 * valid_mime_types - list containing allowed content_types. Example: ['application/pdf', 'image/jpeg']
@@ -15,13 +15,13 @@
 
 """
 VALID_FILE_EXTENSIONS = ['.pdf']
-MAX_FILE_SIZE = 5242880 # 5 MB of file size max
+MAX_FILE_SIZE = 5242880  # 5 MB of file size max
 VALID_MIME_TYPES = ['application/pdf']
 
-#File Validation for the Attachments
+# File Validation for the Attachments
 
-# Image Upload Resize Width 
+# Image Upload Resize Width
 # Resize height is calculated in the view during resize
-MAX_RESIZE_WIDTH = 800 # max image of 800x600
-MAX_RESIZE_HEIGHT = 600 # max image of 800x600
-# Image Upload Resize Width 
+MAX_RESIZE_WIDTH = 800  # max image of 800x600
+MAX_RESIZE_HEIGHT = 600  # max image of 800x600
+# Image Upload Resize Width

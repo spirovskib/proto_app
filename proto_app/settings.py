@@ -16,7 +16,7 @@ import logging.config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_DIR=os.path.dirname(__file__)
+PROJECT_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -24,14 +24,16 @@ PROJECT_DIR=os.path.dirname(__file__)
 # SECURITY WARNING: keep the secret key used in production secret!
 # to generate secret key run
 # LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 && echo
+DEBUG = os.getenv('DJANGO_DEBUG', True)
 
-#SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+if DEBUG:
+    SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
+    with open(SECRET_FILE) as f:
+        SECRET_KEY = f.read().strip()
+else:
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
-with open(  SECRET_FILE) as f:
-    SECRET_KEY = f.read().strip()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost,192.168.1.4,172.31.23.116,3.16.136.2,ako.beyondmachines.net').split(',')
 
@@ -44,28 +46,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites', #this app is apparently required by Django AllAuth. No more details...
+    'django.contrib.sites',  # this app is apparently required by Django AllAuth. No more details...
 
 
-    #application apps
+    # application apps
     'application',
     'settings',
     'accounts',
 
-   #third party tools
+    # third party tools
     'ckeditor',
     'crispy_forms',
 
-    #this app must be last to have proper file cleanup
+    # this app must be last to have proper file cleanup
     'django_cleanup.apps.CleanupConfig',
 
 
-    #allauth applications
+    # allauth applications
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
-    #allauth providers
+    # allauth providers
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google'
 
@@ -89,7 +91,7 @@ ROOT_URLCONF = 'proto_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")], #templates at root level. We may want to place separate templates in each app...,
+        'DIRS': [os.path.join(BASE_DIR, "templates")],  # templates at root level. We may want to place separate templates in each app...,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,31 +159,31 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static_assets/')
-#STATIC_ROOT = os.path.join(PROJECT_DIR,'static/') #this should probably be modified to actually point to a static folder somewhere i production
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets/')
+# STATIC_ROOT = os.path.join(PROJECT_DIR,'static/') #this should probably be modified to actually point to a static folder somewhere i production
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static_data/')
+    os.path.join(BASE_DIR, 'static_data/')
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media_assets/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_assets/')
 
 
 # CKEDITOR RICH TEXT EDITOR SETTING
 CKEDITOR_CONFIGS = {
-'default': {
-    'toolbar': [["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
-                ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
-                 'JustifyRight', 'JustifyBlock'],
-                ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript", "Superscript"], ['Undo', 'Redo'], ["Source"],
-                ],
-    'width': 'auto',
-          },
-    }
+    'default': {
+        'toolbar': [["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+                    ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+                    'JustifyRight', 'JustifyBlock'],
+                    ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript", "Superscript"], ['Undo', 'Redo'], ["Source"],
+                    ],
+        'width': 'auto',
+    },
+}
 
 
-## The parameters below are from the AllAuth Social Login. 
-#this is the first site ID (default) required by the Django Contrib Sites app 
+# The parameters below are from the AllAuth Social Login.
+# this is the first site ID (default) required by the Django Contrib Sites app
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = 'home'
@@ -200,13 +202,11 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_UNIQUE_EMAIL = True 
+ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
-
 # Logging Configuration
-
 # Clear prev config
 LOGGING_CONFIG = None
 

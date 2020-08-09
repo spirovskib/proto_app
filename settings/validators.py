@@ -1,7 +1,8 @@
 import magic
 from settings.constants import VALID_FILE_EXTENSIONS, VALID_MIME_TYPES, MAX_FILE_SIZE
 
-#in order to run magic you need to 
+# in order to run magic you need to install magic in linux (this will fail on runtime...)
+
 
 def validate_file_type_size(value):
     import os
@@ -12,5 +13,5 @@ def validate_file_type_size(value):
     if value.size > MAX_FILE_SIZE:
         raise ValidationError('File too large')
     else:
-        if not ext.lower() in VALID_FILE_EXTENSIONS or not mime in VALID_MIME_TYPES:
+        if ext.lower() not in VALID_FILE_EXTENSIONS or mime not in VALID_MIME_TYPES:
             raise ValidationError('Unsupported file type.')

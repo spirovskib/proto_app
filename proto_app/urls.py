@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include,re_path
+from django.urls import path, include, re_path
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -27,7 +27,7 @@ handler404 = err_handler404
 
 urlpatterns = [
     re_path(r'^media/', protected_media_view, name="protect_media"),
- #   path('media/<path>', protected_media_view, name='protected_media'),
+    #  path('media/<path>', protected_media_view, name='protected_media'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', home_view, name='home'),
@@ -36,10 +36,10 @@ urlpatterns = [
     path('view_post/<slug:slug>', view_post_detail, name='view_post'),
     path('new_post/<slug:slug>', new_post_view, name='new_post'),
     path('project/', new_project_view, name='new_project'),
-    path('project/<slug:slug>', project_detail_view, name='project_detail'),   
-    path('add_user_project/<slug:slug>', add_user_project_view, name='add_user_project'),   
-    path('delete_user_project/<slug:slug>,<str:pk_email>', delete_user_project_view, name='delete_user_project'),   
+    path('project/<slug:slug>', project_detail_view, name='project_detail'),
+    path('add_user_project/<slug:slug>', add_user_project_view, name='add_user_project'),
+    path('delete_user_project/<slug:slug>,<str:pk_email>', delete_user_project_view, name='delete_user_project'),
 ]
 
-if settings.DEBUG: 
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
