@@ -9,9 +9,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
 # Setup the environment variables for the python application
-ENV HOME=/home/app
-ENV APP_HOME=/home/app/proto_app
-ENV DJANGO_DEBUG=False
+ENV HOME /home/app
+ENV APP_HOME /home/app/proto_app
+ENV DJANGO_DEBUG False
+ENV DJANGO_DATABASE_PATH /home/app/db
+ENV DJANGO_MEDIA_PATH /home/app/media
+ENV DJANGO_STATIC_PATH /home/app/static
+ENV DJANGO_SECRET_KEY "4tofg;&*^%$ER#$%^YHR&^%r390485gsk"
+ENV DJANGO_ALLOWED_HOSTS '127.0.0.1,localhost,192.168.1.4,172.31.23.116,3.16.136.2,ako.beyondmachines.net'
 
 # create the appropriate directories
 RUN mkdir $HOME
@@ -52,4 +57,4 @@ COPY ./docker_config_files/entrypoint.sh $APP_HOME
 # run entrypoint.sh to do migrations - this needs to be fixed since it wont' work with migrations running on the image if the database is not here
 # RUN $APP_HOME/entrypoint.sh
 
-CMD ["/usr/bin/supervisord"]
+CMD $APP_HOME/entrypoint.sh

@@ -7,4 +7,6 @@ python manage.py migrate
 python manage.py makemigrations application
 python manage.py migrate
 
-#exec /usr/bin/supervisord
+python manage.py collectstatic --noinput
+
+/usr/bin/supervisord

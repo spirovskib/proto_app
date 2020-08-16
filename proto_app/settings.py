@@ -26,7 +26,7 @@ PROJECT_DIR = os.path.dirname(__file__)
 # LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 && echo
 DEBUG = os.getenv('DJANGO_DEBUG', True)
 
-if DEBUG:
+if DEBUG == 'True':
     SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
     with open(SECRET_FILE) as f:
         SECRET_KEY = f.read().strip()
@@ -35,7 +35,7 @@ else:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost,192.168.1.4,172.31.23.116,3.16.136.2,ako.beyondmachines.net').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Application definition
 
@@ -113,10 +113,15 @@ WSGI_APPLICATION = 'proto_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+if DEBUG == 'True':
+    DB_PATH = BASE_DIR
+else:
+    DB_PATH = os.getenv('DJANGO_DATABASE_PATH')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(DB_PATH, 'db.sqlite3'),
     }
 }
 
@@ -157,16 +162,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+if DEBUG == 'True':
+    STATIC_FILE_PATH = BASE_DIR
+    MEDIA_FILE_PATH = BASE_DIR
+else:
+    STATIC_FILE_PATH = os.getenv('DJANGO_STATIC_PATH')
+    MEDIA_FILE_PATH = os.getenv('DJANGO_MEDIA_PATH')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets/')
-# STATIC_ROOT = os.path.join(PROJECT_DIR,'static/') #this should probably be modified to actually point to a static folder somewhere i production
+STATIC_ROOT = os.path.join(STATIC_FILE_PATH, 'static_assets/')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_data/')
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_assets/')
+MEDIA_ROOT = os.path.join(MEDIA_FILE_PATH, 'media_assets/')
 
 
 # CKEDITOR RICH TEXT EDITOR SETTING

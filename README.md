@@ -62,3 +62,19 @@ while in proto_application folder run:
 
 ### Running of the app (on localhost at port 8000)
     python manage.py runserver
+
+### Running in Docker Image with Persistent Data
+#### The following environment variables are set up in the Docker image. Create a host paths for these folders and map the volumes on running the Docker container
+- DJANGO_DATABASE_PATH = /home/app/db
+- DJANGO_MEDIA_PATH = /home/app/media
+- DJANGO_STATIC_PATH = /home/app/static
+
+Example
+    docker run -p 80:80\
+        -v $HOME/Dev/proto_app/app/media:/home/app/media\
+        -v $HOME/Dev/proto_app/app/static:/home/app/static\
+        -v $HOME/Dev/proto_app/app/db:/home/app/db\
+        docker_image_id
+
+
+

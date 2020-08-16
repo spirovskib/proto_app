@@ -1,0 +1,13 @@
+db.sqlite3
+static_assets
+Dockerfile.*
+*/__pycache__/*
+db.sqlite3
+secret_key.txt
+media_assets/
+statoc_assets/
+proto_app.log
+.env.dev
+.env.prod
+Dockerfile.*
+proto_app.code-workspace

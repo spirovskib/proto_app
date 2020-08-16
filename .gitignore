@@ -3,7 +3,7 @@
 db.sqlite3
 secret_key.txt
 media_assets/
-static_data/
+statoc_assets/
 proto_app.log
 .env.dev
 .env.prod

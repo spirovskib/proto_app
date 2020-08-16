@@ -1,0 +1,11 @@
+#!/bin/sh
+
+
+echo $DJANGO_DEBUG
+echo $DJANGO_DATABASE_PATH
+echo $DJANGO_MEDIA_PATH
+echo $DJANGO_STATIC_PATH
+echo $DJANGO_SECRET_KEY
+
+
+python3 $APP_HOME/env_test.py
