@@ -7,3 +7,4 @@ static_data/
 proto_app.log
 .env.dev
 .env.prod
+Dockerfile.*

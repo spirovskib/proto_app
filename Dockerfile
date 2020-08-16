@@ -1,75 +1,55 @@
-###########
-# BUILDER #
-###########
-
-# pull official base image, using the latest available from the Python repo with Alpine Linux
-FROM python:3.8.5-slim-buster as builder
-
-# set work directory
-WORKDIR /usr/src/app
-
-#START set environment variables
-## Prevents Python from writing pyc files to disc
-ENV PYTHONDONTWRITEBYTECODE 1
-## Prevents Python from buffering stdout and stderr
-ENV PYTHONUNBUFFERED 1
-
-# libtiff5-dev libjpeg62-turbo-dev libopenjp2-7-dev zlib1g-dev \
-# libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
-# libharfbuzz-dev libfribidi-dev libxcb1-dev
-# update and install dependencies
-RUN apt-get update && apt-get -y install libmagic1 libopenjp2-7
-RUN apt-get update && apt-get upgrade -y
-
-# lint
-RUN pip install --upgrade pip
-RUN pip install flake8
-COPY . .
-RUN flake8 --ignore=E501,F401,W605 .
-
-# install dependencies
-COPY ./requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
-
-
-#########
-# FINAL #
-#########
-
 # pull official base image
 FROM python:3.8.5-slim-buster
 
-# create directory for the app user
-# RUN mkdir -p /home/app
+# create the app system user, the app system group and home directory (home/app)
 
-# create the app user
-RUN addgroup --system app && adduser --system app --ingroup app
-
-# create the appropriate directories
+#START set environment variables
+# Prevents Python from writing pyc files to disc
+ENV PYTHONDONTWRITEBYTECODE 1
+# Prevents Python from buffering stdout and stderr
+ENV PYTHONUNBUFFERED 1
+# Setup the environment variables for the python application
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/proto_app
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
+ENV DJANGO_DEBUG=False
 
-# install dependencies
-RUN apt-get update && apt-get -y install libmagic1 libopenjp2-7 nginx
+# create the appropriate directories
+RUN mkdir $HOME
+RUN mkdir $APP_HOME
+
+# update the system to latest patchlevel, and add imagemagic libraries, then clean up.
+RUN apt-get update && apt-get -y install libmagic1 libopenjp2-7 nginx supervisor
 RUN apt-get update && apt-get upgrade -y
 RUN apt autoremove -y
-COPY --from=builder /usr/src/app/wheels /wheels
-COPY --from=builder /usr/src/app/requirements.txt .
-RUN pip install --no-cache /wheels/*
 
-# copy entrypoint.sh to run migrations
-COPY ./entrypoint.sh $APP_HOME
+# install python pip, linter (flake8), supervisor, copy the requirements file and install requirements
+RUN pip install --upgrade pip
+RUN pip install flake8
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
-# copy project
-COPY . $APP_HOME
+# copy runtime config files
+COPY ./docker_config_files/nginx.conf /etc/nginx/
+COPY ./docker_config_files/nginx_proto_app.conf /etc/nginx/conf.d/
+COPY ./docker_config_files/supervisor_nginx_proto_app.conf /etc/supervisor/conf.d/
 
 # chown all the files to the app user
-RUN chown -R app:app $APP_HOME
+RUN addgroup --system app && adduser --system app --ingroup app
 
+WORKDIR $APP_HOME
 # change to the app user
-USER app
 
-# run entrypoint.sh
-ENTRYPOINT ["/home/app/proto_app/entrypoint.sh"]
+# copy the application code and run linter in the copied folder
+COPY . $APP_HOME
+### RUN chown -R app:app $APP_HOME
+RUN flake8 --ignore=E501,F401,W605 $APP_HOME
+
+# copy entrypoint program
+COPY ./docker_config_files/entrypoint.sh $APP_HOME
+
+### USER app
+
+# run entrypoint.sh to do migrations - this needs to be fixed since it wont' work with migrations running on the image if the database is not here
+# RUN $APP_HOME/entrypoint.sh
+
+CMD ["/usr/bin/supervisord"]

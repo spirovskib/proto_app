@@ -2,9 +2,9 @@
 
 python manage.py makemigrations accounts
 python manage.py migrate accounts
-python manage.py makemigrations 
+python manage.py makemigrations
 python manage.py migrate
 python manage.py makemigrations application
 python manage.py migrate
 
-exec "$@"
+#exec /usr/bin/supervisord
