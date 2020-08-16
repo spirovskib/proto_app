@@ -26,7 +26,7 @@ PROJECT_DIR = os.path.dirname(__file__)
 # LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 && echo
 DEBUG = os.getenv('DJANGO_DEBUG', True)
 
-if DEBUG == 'True':
+if DEBUG == True:
     SECRET_FILE = os.path.join(BASE_DIR, 'secret_key.txt')
     with open(SECRET_FILE) as f:
         SECRET_KEY = f.read().strip()
@@ -113,7 +113,7 @@ WSGI_APPLICATION = 'proto_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if DEBUG == 'True':
+if DEBUG == True:
     DB_PATH = BASE_DIR
 else:
     DB_PATH = os.getenv('DJANGO_DATABASE_PATH')
@@ -162,7 +162,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-if DEBUG == 'True':
+if DEBUG == True:
     STATIC_FILE_PATH = BASE_DIR
     MEDIA_FILE_PATH = BASE_DIR
 else:

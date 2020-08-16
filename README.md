@@ -70,11 +70,11 @@ while in proto_application folder run:
 - DJANGO_STATIC_PATH = /home/app/static
 
 Example
-    docker run -p 80:80\
-        -v $HOME/Dev/proto_app/app/media:/home/app/media\
-        -v $HOME/Dev/proto_app/app/static:/home/app/static\
-        -v $HOME/Dev/proto_app/app/db:/home/app/db\
-        docker_image_id
+    docker run -d -p 80:80\
+     -v $HOME/Dev/proto_app/app/media:/home/app/media\
+     -v $HOME/Dev/proto_app/app/static:/home/app/static\
+     -v $HOME/Dev/proto_app/app/db:/home/app/db\
+     docker_image_id
 
 
 
