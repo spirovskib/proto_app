@@ -72,7 +72,7 @@ this maps to the path /home/app/media in the container, defined by the DJANGO_ME
 
 ##### For the static content (css, javascript and similar)
 
-    kdir $HOME/Dev/proto_app/app/static
+    mkdir $HOME/Dev/proto_app/app/static
 this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
 
 #### Run the persistent data container
