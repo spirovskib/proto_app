@@ -6,9 +6,9 @@
 The ProtoApp application is a very simple application suitable for demo and educational purposes.
 This application is a POC
 
-### Functionalities
+## Functionalities
 
-#### Elements of the ProtoApp:
+### Elements of the ProtoApp:
 
 - The ProtoApp allows the creation of projects and posts within each project.
 - Access to the projects is restricted. The creator of the project needs to add the other users to the respective project.
@@ -21,15 +21,72 @@ This application is a POC
 - Every registered user can add a note to the general message board.
 - Automatic cleanup of files on delete of post (currently only from admin interface)
 
-#### Limitations worth noting:
+### Limitations worth noting:
 
+- **Important, change immediately:** In DOCKER initial install the default superuser account is: *shodan@trioptimum.com* with password: *RickenbackerVonBraun*
 - The superuser created at install is the only one that has access to the admin panel (URL/admin)
 - There are NO user facing profile nor password management capabilities.
 - By default the users do not have credits and the superuser needs to add credits to the users.
 - Uploaded files are limited to 2.5MB per file
 - Uploaded images will be proportionally resized to max 800px width or 600px height (whichever side is larger)
 
-### Installation
+## Installation
+
+### Docker Installation
+
+#### Prepare the DJANGO_SECRET_KEY for the container
+
+In order for the container to run properly it must have the DJANGO_SECRET_KEY variable populated with a random string. This string MUST NOT BE SHARED to other users, so it's created before running the container.
+
+Create the DJANGO_SECRET_KEY env file.
+
+    LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 > secret.txt
+    echo DJANGO_SECRET_KEY='"'`cat secret.txt`'"' > django_env.txt
+    rm secret.txt
+
+### Running Non-Persistent data Docker Container
+
+If you just want to see how the application works, you can run it without persistent data. This means that the data (media and database) is stored within the container and will be lost when the container stops.
+
+#### Run the non-persistent data container
+You can run the ProtoApp docker container with the following command. You can access the application on your localhost on port 80.
+
+    docker run -d -p 80:80\
+     --env-file django_env.txt\
+     beyondmachines/proto_app:latest
+
+### Running Persistent Data Docker Container
+
+In order to create persistence of data (media and database) outside of the container you need to create the folders for volume mapping on the host.
+The following instructions and created patsh are an example only but they are compatible with the container running script below. If you want to change the paths make sure that you also change them in the docker run path below.
+
+##### For the database
+
+    mkdir $HOME/Dev/proto_app/app/db
+this maps to the path /home/app/db in the container, defined by the DJANGO_DATABASE_PATH
+
+##### For the media (uploaded files)
+
+    mkdir $HOME/Dev/proto_app/app/media
+this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
+
+##### For the static content (css, javascript and similar)
+
+    kdir $HOME/Dev/proto_app/app/static
+this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
+
+#### Run the persistent data container
+You can run the ProtoApp docker container with the following command. You can access the application on your localhost on port 80.
+
+    docker run -d -p 80:80\
+     --env-file django_env.txt\
+     -v $HOME/Dev/proto_app/app/media:/home/app/media\
+     -v $HOME/Dev/proto_app/app/static:/home/app/static\
+     -v $HOME/Dev/proto_app/app/db:/home/app/db\
+     beyondmachines/proto_app:latest
+
+### Running from source
+
 #### Create a folder and create virtual environment
 
     mkdir proto_application
@@ -62,39 +119,3 @@ while in proto_application folder run:
 
 ### Running of the app (on localhost at port 8000)
     python manage.py runserver
-
-### Running in Docker Image with Persistent Data
-In order to create persistence of data (media and database) outside of the container you need to create the folders for volume mapping.
-The following instructions and created patsh are an example only but they are compatible with the container running script below. If you want to change the paths make sure that you also change them in the docker run path below
-##### For the database
-mkdir $HOME/Dev/proto_app/app/db
-this maps to the path /home/app/db in the container, defined by the DJANGO_DATABASE_PATH
-
-##### For the media (uploaded files)
-mkdir $HOME/Dev/proto_app/app/media
-this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
-
-##### For the static content (css, javascript and similar)
-mkdir $HOME/Dev/proto_app/app/static
-this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
-
-#### The following environment variables are set up in the Docker image. Create a host paths for these folders and map the volumes on running the Docker container
-
-#### Django secretRunning the docker container:
-Create the DJANGO_SECRET_KEY env file.
-LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 > secret.txt
-echo DJANGO_SECRET_KEY='"'`cat secret.txt`'"' > django_env.txt
-rm secret.txt
-
-#### Run the container
-You can run the ProtoApp docker container with the following command. You can access the application on your localhost on port 80.
-
-    docker run -d -p 80:80\
-     --env-file django_env.txt\
-     -v $HOME/Dev/proto_app/app/media:/home/app/media\
-     -v $HOME/Dev/proto_app/app/static:/home/app/static\
-     -v $HOME/Dev/proto_app/app/db:/home/app/db\
-     beyondmachines/proto_app:latest
-
-#### Default superuser
-The default superuser account is: **shodan@trioptimum.com** with password: **RickenbackerVonBraun**

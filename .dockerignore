@@ -11,3 +11,4 @@ proto_app.log
 .env.prod
 Dockerfile.*
 proto_app.code-workspace
+django_env.txt

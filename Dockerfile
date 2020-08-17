@@ -21,6 +21,9 @@ ENV DJANGO_ALLOWED_HOSTS '127.0.0.1,localhost'
 # create the appropriate directories
 RUN mkdir $HOME
 RUN mkdir $APP_HOME
+RUN mkdir $DJANGO_DATABASE_PATH
+RUN mkdir $DJANGO_MEDIA_PATH
+RUN mkdir $DJANGO_STATIC_PATH
 
 # update the system to latest patchlevel, and add imagemagic libraries, then clean up.
 RUN apt-get update && apt-get -y install libmagic1 libopenjp2-7 nginx supervisor
