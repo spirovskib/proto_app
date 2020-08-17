@@ -76,5 +76,5 @@ Example
      -v $HOME/Dev/proto_app/app/db:/home/app/db\
      docker_image_id
 
-
-
+#### Default The following environment variables are set up in the Docker image
+The default superuser account is: **shodan@trioptimum.com** with password: **RickenbackerVonBraun**
