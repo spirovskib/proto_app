@@ -64,17 +64,37 @@ while in proto_application folder run:
     python manage.py runserver
 
 ### Running in Docker Image with Persistent Data
-#### The following environment variables are set up in the Docker image. Create a host paths for these folders and map the volumes on running the Docker container
-- DJANGO_DATABASE_PATH = /home/app/db
-- DJANGO_MEDIA_PATH = /home/app/media
-- DJANGO_STATIC_PATH = /home/app/static
+In order to create persistence of data (media and database) outside of the container you need to create the folders for volume mapping.
+The following instructions and created patsh are an example only but they are compatible with the container running script below. If you want to change the paths make sure that you also change them in the docker run path below
+##### For the database
+mkdir $HOME/Dev/proto_app/app/db
+this maps to the path /home/app/db in the container, defined by the DJANGO_DATABASE_PATH
 
-Example
+##### For the media (uploaded files)
+mkdir $HOME/Dev/proto_app/app/media
+this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
+
+##### For the static content (css, javascript and similar)
+mkdir $HOME/Dev/proto_app/app/static
+this maps to the path /home/app/media in the container, defined by the DJANGO_MEDIA_PATH
+
+#### The following environment variables are set up in the Docker image. Create a host paths for these folders and map the volumes on running the Docker container
+
+#### Django secretRunning the docker container:
+Create the DJANGO_SECRET_KEY env file.
+LC_ALL=C </dev/urandom tr -dc 'A-Za-z0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~' | head -c 50 > secret.txt
+echo DJANGO_SECRET_KEY='"'`cat secret.txt`'"' > django_env.txt
+rm secret.txt
+
+#### Run the container
+You can run the ProtoApp docker container with the following command. You can access the application on your localhost on port 80.
+
     docker run -d -p 80:80\
+     --env-file django_env.txt\
      -v $HOME/Dev/proto_app/app/media:/home/app/media\
      -v $HOME/Dev/proto_app/app/static:/home/app/static\
      -v $HOME/Dev/proto_app/app/db:/home/app/db\
-     docker_image_id
+     beyondmachines/proto_app:latest
 
-#### Default The following environment variables are set up in the Docker image
+#### Default superuser
 The default superuser account is: **shodan@trioptimum.com** with password: **RickenbackerVonBraun**

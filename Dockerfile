@@ -15,8 +15,8 @@ ENV DJANGO_DEBUG False
 ENV DJANGO_DATABASE_PATH /home/app/db
 ENV DJANGO_MEDIA_PATH /home/app/media
 ENV DJANGO_STATIC_PATH /home/app/static
-ENV DJANGO_SECRET_KEY "4tofg;&*^%$ER#$%^YHR&^%r390485gsk"
-ENV DJANGO_ALLOWED_HOSTS '127.0.0.1,localhost,192.168.1.4,172.31.23.116,3.16.136.2,ako.beyondmachines.net'
+# ENV DJANGO_SECRET_KEY="demo_secret_key"  - the real secret key should be passed in runtime at startup of the container
+ENV DJANGO_ALLOWED_HOSTS '127.0.0.1,localhost'
 
 # create the appropriate directories
 RUN mkdir $HOME
