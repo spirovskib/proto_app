@@ -9,14 +9,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
 # Setup the environment variables for the python application
-ENV HOME /home/app
-ENV APP_HOME /home/app/proto_app
-ENV DJANGO_DEBUG False
-ENV DJANGO_DATABASE_PATH /home/app/db
-ENV DJANGO_MEDIA_PATH /home/app/media
-ENV DJANGO_STATIC_PATH /home/app/static
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/proto_app
+ENV DJANGO_DEBUG ''
+ENV DJANGO_DATABASE_PATH=/home/app/db
+ENV DJANGO_MEDIA_PATH=/home/app/media
+ENV DJANGO_STATIC_PATH=/home/app/static
 # ENV DJANGO_SECRET_KEY="demo_secret_key"  - the real secret key should be passed in runtime at startup of the container
-ENV DJANGO_ALLOWED_HOSTS '127.0.0.1,localhost'
+ENV DJANGO_ALLOWED_HOSTS='127.0.0.1,localhost'
 
 # create the appropriate directories
 RUN mkdir $HOME
