@@ -39,10 +39,6 @@ jobs:
           uses: security-extended
         - name: Security and Quality
           uses: security-and-quality
-        - name: Use an external JavaScript QL pack (run queries from an external repo)
-          uses: octo-org/javascript-qlpack@master
-        - name: Use an external query (run a single query from an external QL pack)
-          uses: octo-org/python-qlpack/show_ifs.ql@master
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)

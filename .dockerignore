@@ -12,3 +12,4 @@ proto_app.log
 Dockerfile.*
 proto_app.code-workspace
 django_env.txt
+.github/*
