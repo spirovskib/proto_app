@@ -1,0 +1,11 @@
+name: "My CodeQL config"
+
+disable-default-queries: true
+
+languages: javascript, python
+
+queries:
+  - name: Extended Security
+    uses: security-extended
+  - name: Security and Quality
+    uses: security-and-quality
