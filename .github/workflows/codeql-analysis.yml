@@ -34,7 +34,9 @@ jobs:
       with:
         languages: javascript, python
         queries:
-        - uses: security-extended, security-and-quality
+          uses: security-extended
+          # - name: Security and Quality
+          #   uses: security-and-quality
 
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
