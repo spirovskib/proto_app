@@ -9,9 +9,6 @@ on:
   schedule:
     - cron: '0 7 * * 1'
 
-queries:
- - uses: security-and-quality
-   
 jobs:
   analyze:
     name: Analyze
