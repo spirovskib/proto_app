@@ -1,5 +1,6 @@
 # Prototype Web application
-### Proto_App runs Python 3 and Django 3. The database is local SQLite3 file.
+
+Proto_App runs Python 3 and Django 3. The database is local SQLite3 file.
 
 **Important: Not production grade! Run only for educational purposes!**
 
