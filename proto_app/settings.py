@@ -58,9 +58,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
 
-    # this app must be last to have proper file cleanup
-    'django_cleanup.apps.CleanupConfig',
-
 
     # allauth applications
     'allauth',
@@ -71,6 +68,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google'
 
+    # this app must be last to have proper file cleanup
+    'django_cleanup.apps.CleanupConfig',
 
 ]
 
