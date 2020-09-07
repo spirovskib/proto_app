@@ -57,6 +57,7 @@ class Profile(models.Model):
     project_credits = models.IntegerField(null=True, blank=True, default=0)
     private_profile = models.BooleanField(default=False, null=False)
     consent_marketing_notifications = models.BooleanField(default=True, null=False)
+    consent_stats_notifications = models.BooleanField(default=True, null=False)
     user_profile_url = models.SlugField(max_length=100, blank=True, null=True, unique=True)  # the slug field for the public profile url
     user_bio = models.CharField(max_length=2000, blank=True, null=True)  # PLEASE_NOTE That this field is NOT inherited from models
 
