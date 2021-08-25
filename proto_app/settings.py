@@ -65,8 +65,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # allauth providers
-    'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.google'
+    #'allauth.socialaccount.providers.twitter',
+    #'allauth.socialaccount.providers.google'
 
     # this app must be last to have proper file cleanup
     'django_cleanup.apps.CleanupConfig',
