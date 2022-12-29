@@ -15,7 +15,7 @@ django-js-asset==1.2.2
 dparse==0.5.1
 flake8==3.8.4
 gitdb==4.0.5
-GitPython==3.1.9
+GitPython==3.1.30
 idna==2.10
 importlib-metadata==2.0.0
 mccabe==0.6.1
